@@ -3,7 +3,7 @@
 Este repositorio contiene el desarrollo práctico del examen final, enfocado en el análisis de logs de seguridad, entrenamiento de modelos de Machine Learning para la detección de anomalías de red y el despliegue de reglas HIDS.
 
 ## 👥 Integrantes
-* **Jhosef** - Estudiante de Ingeniería de Sistemas
+* **Jhosef Anthony Quispe Huarilloclla** - Estudiante de Ingeniería de Sistemas
 
 ---
 
