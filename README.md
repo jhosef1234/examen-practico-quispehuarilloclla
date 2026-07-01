@@ -1,68 +1,79 @@
-# Examen Final: Analítica de Datos y Reglas de Correlación Avanzada en Entornos SOC
+# Examen Práctico Final - Seguridad de Sistemas
 
-Este repositorio contiene el desarrollo práctico del examen final, enfocado en el análisis de logs de seguridad, entrenamiento de modelos de Machine Learning para la detección de anomalías de red y el despliegue de reglas HIDS.
+**Autor:** Jhosef Anthony Quispe Huarilloclla  
+**Fecha:** 30 Junio 2026  
 
-## 👥 Integrantes
-* **Jhosef Anthony Quispe Huarilloclla** - Estudiante de Ingeniería de Sistemas
-
----
-
-## 📊 Laboratorio 1: Análisis Exploratorio de Datos (EDA) y Procesamiento de Logs (`lab1/`)
-Implementación de scripts en Python para la ingesta, parseo y análisis estadístico de logs de servidores web y de autenticación.
-
-### Componentes y Archivos
-* `auth.log` y `access.log`: Datasets crudos de auditoría del sistema.
-* `analizar_ssh.py` y `analizar_web.py`: Scripts de extracción de características y generación de estructuras estructurales.
-* `reporte_ssh.json` y `reporte_web.json`: Datos limpios estructurados listos para analítica.
-
-### Evidencias de Ejecución (Estructura de Datos)
-* **SCR-1.1a_ssh_ejecucion.png:** Ejecución del pipeline de procesamiento del protocolo SSH.
-* **SCR-1.1b_ssh_json.png:** Formateo y serialización de eventos de autenticación a formato JSON de auditoría.
-* **SCR-1.2a_web_ejecucion.png:** Parseo de peticiones y códigos de estado HTTP (logs Apache/Nginx).
-* **SCR-1.2b_web_json.png:** Almacenamiento JSON de telemetría de tráfico web.
-
-### Gráficas de Telemetría Generadas (`lab1/graficas/`)
-* `heatmap_http.png`: Matriz de calor de densidad de peticiones HTTP por hora/IP.
-* `timeline_http.png`: Línea de tiempo secuencial de ráfagas e inyecciones de tráfico anómalo.
-* `top10_ssh.png`: Distribución estadística de los vectores IP con mayor tasa de fallos de autenticación.
+## 📄 Descripción del Proyecto
+Este repositorio contiene la resolución integral del examen práctico final. El proyecto está dividido en cuatro laboratorios enfocados en distintas áreas críticas de la ciberseguridad: análisis de logs mediante scripting en Python, configuración de SIEM con Wazuh, detección de anomalías usando Machine Learning, y visualización de eventos de seguridad (SOC) utilizando Grafana y Loki.
 
 ---
 
-## 🛡️ Laboratorio 2: Despliegue de Reglas Personalizadas HIDS (Wazuh) (`lab2/`)
-Despliegue defensivo en caliente mediante el aprovisionamiento de firmas de detección de intrusos.
+## 📂 Estructura del Repositorio
 
-### Configuraciones XML Desplegadas
-* **`local_rules_ssh.xml` (ID: 100001):** Firma basada en umbrales de frecuencia para mitigar ataques activos de Fuerza Bruta SSH (Frecuencia: 10 intentos / Ventana: 60s).
-* **`local_rules_exfil.xml` (ID: 100002, 100003):** Correlación lógica orientada a la identificación de accesos en horario nocturno no habitual (22:00 a 06:00) correlacionados con payloads de exfiltración masiva de datos corporativos salientes.
+El repositorio está organizado en cuatro directorios principales, cada uno correspondiente a un laboratorio específico con sus respectivos scripts, datasets y evidencias de ejecución.
 
-### Evidencias de Cumplimiento
-* **SCR-2.1_wazuh_activo.png:** Estado operativo del daemon de control (`wazuh-manager`) inicializado correctamente en el core del SOC.
-* **SCR-2.2_reglas_validadas.png:** Análisis de carga sintáctica XML e integración de firmas perimetrales.
-* **SCR-2.3.png:** Ejecución interactiva del motor de simulación (`wazuh-logtest`) validando el flujo completo de alertas y mapeo bajo la taxonomía de la matriz MITRE ATT&CK.
+### 💻 Laboratorio 1: Procesamiento y Análisis de Logs (Python)
+Desarrollo de scripts en Python para la ingesta, parseo y análisis de archivos log de servidores web (`access.log`) y sistemas Linux (`auth.log`), generando reportes estructurados y visualizaciones.
 
----
+**Archivos principales:**
+* `analizar_ssh.py`: Script para extraer intentos de conexión y geolocalización.
+* `analizar_web.py`: Script para el análisis de tráfico web y códigos de estado HTTP.
+* `visualizar.py`: Generador de gráficos de los datos procesados.
+* `reporte_ssh.json` / `reporte_web.json`: Archivos de salida con los resultados.
 
-## 🔍 Laboratorio 3: Detección de Anomalías con Machine Learning (`lab3/`)
-Despliegue de un pipeline analítico predictivo para clasificar tráfico malicioso y vectores de exfiltración mediante modelos de aprendizaje automático no supervisado / supervisado.
-
-### Artefactos del Modelo
-* `network_traffic.csv`: Dataset de vectores de red estructurados para el entrenamiento.
-* `scaler_anomalias.pkl`: Objeto de normalización estadística de características numéricas.
-* `modelo_anomalias.pkl`: Modelo entrenado y persistido para la detección de intrusiones.
-* `predecir.py`: Script de inferencia en tiempo real para la clasificación de nuevos vectores incidentes.
-
-### Evidencias del Pipeline Predictivo
-* **SCR-3.1_eda.png:** Distribución de densidad y correlación de variables críticas del tráfico de red.
-* **SCR-3.2_metricas.png:** Evaluación del modelo (Matriz de confusión, curvas Precision-Recall y F1-Score).
-* **SCR-3.3_umbral_f1.png:** Optimización del umbral de decisión matemática para minimizar falsos negativos.
-* **SCR-3.4_predecir.png:** Inferencia de producción clasificando anomalías y tráfico benigno en tiempo real.
+**Evidencias (`lab1/evidencias/` y `lab1/graficas/`):**
+* `SCR-1.1a_ssh_ejecucion.png` y `SCR-1.1b_ssh_json.png`: Ejecución y salida SSH.
+* `SCR-1.2a_web_ejecucion.png` y `SCR-1.2b_web_json.png`: Ejecución y salida Web.
+* Gráficas generadas: `heatmap_http.png`, `timeline_http.png`, `top10_ssh.png`.
 
 ---
 
-## 🚀 Laboratorio 4: Simulación de Ataque Perimetral con Netcat (`lab4/`)
-Auditoría ofensiva y pruebas de conectividad de sockets de red para validar el comportamiento defensivo del entorno corporativo.
+### 🛡️ Laboratorio 2: Implementación de Reglas y Detección (Wazuh)
+Creación e implementación de reglas personalizadas en el SIEM Wazuh para detectar tácticas específicas de ataque y validación de las mismas mediante la simulación controlada de incidentes.
 
-### Metodología de Simulación Técnica
-1. **Reconocimiento y Port Scanning:** Simulación de recopilación de información exterior hacia los puertos expuestos del servidor:
-   ```bash
-   nc -zv 192.168.1.80 22-80
+**Archivos principales:**
+* `local_rules_ssh.xml`: Reglas personalizadas para detección de ataques SSH.
+* `local_rules_exfil.xml`: Reglas personalizadas para detección de exfiltración de datos.
+* `simular_bruteforce.sh`: Script en Bash para simular ataques de fuerza bruta y activar las reglas.
+
+**Evidencias (`lab2/evidencias/`):**
+* `SCR-2.1_wazuh_activo.png`: Verificación del servicio Wazuh manager corriendo.
+* `SCR-2.2_reglas_validadas.png`: Validación sintáctica de las reglas XML.
+* `SCR-2.3_bruteforce_aler.png`: Captura de las alertas disparadas tras la ejecución del script.
+
+---
+
+### 🤖 Laboratorio 3: Machine Learning para Detección de Anomalías
+Entrenamiento e implementación de un modelo de Machine Learning para identificar patrones anómalos dentro de un conjunto de datos de tráfico de red.
+
+**Archivos principales:**
+* `deteccion_anomalias_ipyn.ipynb`: Jupyter Notebook con el pipeline completo (EDA, preprocesamiento, entrenamiento y evaluación).
+* `predecir.py`: Script para consumir los modelos exportados y predecir sobre nuevos datos.
+* `network_traffic.csv`: Dataset utilizado para el entrenamiento.
+* `modelo_anomalias.pkl` / `scaler_anomalias.pkl`: Modelo entrenado y escalador exportados para uso en producción.
+
+**Evidencias (`lab3/evidencias/`):**
+* `SCR-3.1_eda.png`: Análisis Exploratorio de Datos.
+* `SCR-3.2_metricas.png`: Métricas de evaluación del modelo (Matriz de confusión, etc.).
+* `SCR-3.3_umbral_f1.png`: Optimización del umbral (F1-Score).
+* `SCR-3.4_predecir.png`: Ejecución exitosa del script de predicción `predecir.py`.
+
+---
+
+### 📊 Laboratorio 4: Monitoreo SOC (Grafana y Loki)
+Despliegue de un panel de control (Dashboard) para un Centro de Operaciones de Seguridad (SOC), conectando Grafana con la base de datos de logs Loki (provenientes de Wazuh) y configurando alertas automatizadas.
+
+**Archivos principales:**
+* `dashboard_soc.json`: Exportación en formato JSON del Dashboard completo con las consultas LogQL configuradas.
+
+**Evidencias (`lab4/evidencias/`):**
+* `SCR-4.2_visualizaciones.png`: Visualizaciones individuales (Barras, Tabla Top 10, Timeline, Circular).
+* `SCR-4.3_dashboard.png`: Dashboard completo integrado y funcional.
+* `SCR-4.4_alerta.png`: Configuración de la regla de alerta de umbral crítico (> 5 eventos en 5 min).
+
+---
+
+## 🛠️ Requisitos y Tecnologías
+* **Lenguajes:** Python 3.x, Bash, LogQL.
+* **Bibliotecas de Python:** Pandas, Scikit-learn, Matplotlib, Seaborn, Json.
+* **Herramientas de Seguridad y Monitoreo:** Wazuh (SIEM), Grafana, Loki.
